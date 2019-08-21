@@ -1,0 +1,111 @@
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.fail;
+
+public class TestYclients {
+
+
+
+    private WebDriver driver;
+    private String baseUrl;
+    private boolean acceptNextAlert = true;
+    private StringBuffer verificationErrors = new StringBuffer();
+    long start = System.currentTimeMillis();
+
+    @Before
+    public void setUp() throws Exception {
+        driver = new ChromeDriver();
+
+        baseUrl = "https://yclients.com/signin";
+
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+    }
+
+    @Test
+    public void testUntitYclientsAut() throws Exception {
+
+        driver.get(baseUrl);
+        TimeUnit.SECONDS.sleep(2);
+
+
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Homepage'])[1]/following::div[2]")).click();
+        TimeUnit.SECONDS.sleep(2);
+
+        driver.findElement(By.name("email")).click();
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.name("email")).clear();
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.name("email")).sendKeys("dmitry.abramkin@diatomic.software");
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.name("password")).click();
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.name("password")).clear();
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.name("password")).sendKeys("fx3x3r");
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.linkText("Login")).click();
+        TimeUnit.SECONDS.sleep(4);
+        driver.findElement(By.linkText("Sign in")).click();
+        TimeUnit.SECONDS.sleep(2);
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Remote help'])[1]/following::span[1]")).click();
+        TimeUnit.SECONDS.sleep(2);
+        driver.close();
+
+
+    }
+
+
+    @After
+    public void tearDown() throws Exception {
+        System.out.println("Test proceed = " + " " + (System.currentTimeMillis() - start)+ " "+" ms");
+
+        driver.quit();
+        String verificationErrorString = verificationErrors.toString();
+        if (!"".equals(verificationErrorString)) {
+            fail(verificationErrorString);
+        }
+    }
+
+    private boolean isElementPresent(By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    private boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
+
+    private String closeAlertAndGetItsText() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            if (acceptNextAlert) {
+                alert.accept();
+            } else {
+                alert.dismiss();
+            }
+            return alertText;
+        } finally {
+            acceptNextAlert = true;
+        }
+    }
+
+
+}
