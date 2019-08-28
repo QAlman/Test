@@ -26,7 +26,7 @@ public class AtestF {
     }
 
     @Test
-    public void testUntitAboutUsB24052019() throws Exception {
+    public void testUntitIm() throws Exception {
 
 
      
@@ -74,10 +74,6 @@ public class AtestF {
         } while (i<=99);
 
         System.out.println("Final fantsy = " +" % visitors to the site who see this = " +" "+"(" + (o/p *100) +"%"+")" );
-
-
-
-
 
 
 
