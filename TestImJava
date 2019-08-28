@@ -1,0 +1,112 @@
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.fail;
+
+public class TestImJava {
+
+
+    private WebDriver driver;
+    private String baseUrl;
+    private boolean acceptNextAlert = true;
+    private StringBuffer verificationErrors = new StringBuffer();
+
+    @Before
+    public void setUp() throws Exception {
+
+  
+    }
+
+    @Test
+    public void testUntitAboutUsB24052019() throws Exception {
+
+     
+        double i=0;
+        double p = 0.1;
+
+        do {
+
+            baseUrl ="http://localhost:58001/";
+            driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.get(baseUrl);
+            TimeUnit.SECONDS.sleep(4);
+            driver.findElement(By.xpath("//div")).click();
+            TimeUnit.SECONDS.sleep(2);
+            String body = driver.findElement(By.tagName("body")).getText();
+            TimeUnit.SECONDS.sleep(2);
+        
+
+            String sp ="How likely are you to recommend our website to friend";
+
+            if (body.contains(sp)) {
+                System.out.println("At first glance this might look like a excellent result");
+                p++;
+            } else {
+
+                System.out.println("Nothing happens");
+             
+            }
+
+            driver.close();
+            TimeUnit.SECONDS.sleep(2);
+
+            i++;
+            System.out.println("New visitor on your site #" + " " + i);
+
+        } while (i<=30);
+
+        System.out.println("Final fantsy = " +" % visitors to the site who see this = " +" "+"(" + i/p +"%"+")" );
+
+
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        driver.quit();
+        String verificationErrorString = verificationErrors.toString();
+        if (!"".equals(verificationErrorString)) {
+            fail(verificationErrorString);
+        }
+    }
+
+    private boolean isElementPresent(By by) {
+        try {
+            driver.findElement(by);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    private boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException e) {
+            return false;
+        }
+    }
+
+    private String closeAlertAndGetItsText() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            if (acceptNextAlert) {
+                alert.accept();
+            } else {
+                alert.dismiss();
+            }
+            return alertText;
+        } finally {
+            acceptNextAlert = true;
+        }
+    }
+
+}
