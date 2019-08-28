@@ -1,3 +1,4 @@
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,26 +9,30 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.fail;
 
-public class TestImJava {
+public class AtestF {
 
 
     private WebDriver driver;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
-
+    long  start = System.currentTimeMillis();
     @Before
     public void setUp() throws Exception {
 
-  
+        start =  System.currentTimeMillis();
+
+
     }
 
     @Test
     public void testUntitAboutUsB24052019() throws Exception {
 
+
      
-        double i=0;
-        double p = 0.1;
+        int   i=0;
+        float o=0;
+        float p=0;
 
         do {
 
@@ -41,34 +46,48 @@ public class TestImJava {
             TimeUnit.SECONDS.sleep(2);
             String body = driver.findElement(By.tagName("body")).getText();
             TimeUnit.SECONDS.sleep(2);
-        
+         
 
             String sp ="How likely are you to recommend our website to friend";
 
             if (body.contains(sp)) {
                 System.out.println("At first glance this might look like a excellent result");
-                p++;
+              
+                o++;
+             
             } else {
 
                 System.out.println("Nothing happens");
-             
+
+
+
             }
+        
 
             driver.close();
             TimeUnit.SECONDS.sleep(2);
 
             i++;
+            p++;
             System.out.println("New visitor on your site #" + " " + i);
 
-        } while (i<=30);
+        } while (i<=99);
 
-        System.out.println("Final fantsy = " +" % visitors to the site who see this = " +" "+"(" + i/p +"%"+")" );
+        System.out.println("Final fantsy = " +" % visitors to the site who see this = " +" "+"(" + (o/p *100) +"%"+")" );
+
+
+
+
+
 
 
     }
 
     @After
     public void tearDown() throws Exception {
+        System.out.println("Test proceed = " + " " + (System.currentTimeMillis() - start)+ " "+" ms");
+
+
         driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
@@ -108,5 +127,4 @@ public class TestImJava {
             acceptNextAlert = true;
         }
     }
-
 }
