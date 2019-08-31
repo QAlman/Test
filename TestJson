@@ -1,0 +1,107 @@
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+public class TestJson {
+
+
+
+        private final String USER_AGENT = "Mozilla/5.0";
+
+        public static void main(String[] args) throws Exception {
+
+            JsonAnd3 http = new JsonAnd3();
+        
+            System.out.println("\nTesting 2 - Send Http POST request");
+            http.sendPost();
+
+        }
+        
+            private void sendPost() throws Exception {
+
+            String url = "https://mini-mongo.u.community:6889/v1/chain/get_table_rows";
+
+            URL obj = new URL(url);
+            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+         
+            con.setRequestMethod("POST");
+            con.setRequestProperty("User-Agent", USER_AGENT);
+            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+  
+            String urlParameters = "{\"scope\":\"uos.calcs\",\"code\":\"uos.calcs\",\"table\":\"rate\",\"json\":\"true\",\"lower_bound\":\"1\",\"limit\":\"9999\"}";
+                  
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(urlParameters);
+            wr.flush();
+            wr.close();
+
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'POST' request to URL : " + url);
+            System.out.println("Post parameters : " + urlParameters);
+            System.out.println("Response Code : " + responseCode);
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+           
+            StringBuilder response = new StringBuilder();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+
+            String str3 = null; // initialization string
+            String str4 = null; // initialization string
+            String data3 = response.toString(); // input  data json
+            JsonParser parser3 = new JsonParser(); // for gson google
+
+
+            JsonObject mainObject = parser3.parse(data3).getAsJsonObject(); 
+         
+            JsonArray rate = mainObject.getAsJsonArray("rows");
+          
+
+            for (JsonElement user : rate) {
+
+                JsonObject userObject3 = user.getAsJsonObject();
+                userObject3.get("acc_name");
+                str3 = userObject3.get("acc_name").toString();
+                str4 = userObject3.get("key").toString();
+
+                System.out.println(str3 + " " + str4 +" "+ "array first");
+
+            }
+
+
+            String djson3 = response.toString();
+
+            JSONParser parser33 = new JSONParser();
+
+            Object obj2 = parser33.parse(djson3);
+            JSONObject jsonObj3 = (JSONObject) obj2;
+                      
+            System.out.println(jsonObj3.get("acc_name") + " " + "name" );
+
+                 
+            String fs = "123456789";
+            String sub = fs.subSequence(3,6).toString();
+            String sub2 = fs.substring(3,6);
+            System.out.println(sub2); //456
+
+
+        }
+
+    }
