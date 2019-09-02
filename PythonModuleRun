@@ -1,0 +1,16 @@
+import unittest
+import this
+
+from EosdtFrontFAQ.py import UntitledTestCase
+from EosdtFrontButton.py import UntitledTestCase
+from EosdtFrontContact.py import UntitledTestCase
+from EosdtFrontGovernance.py import UntitledTestCase
+from EosdtFrontTermsOfUse.py import UntitledTestCase
+from EosdtFrontEosdtButton.py import UntitledTestCase
+from EosdtFrontPrivacyPolicy.py import UntitledTestCase
+from EosdtFrontAboutUsButton.py import UntitledTestCase
+from EosdtFrontStabilityButtonFF.py import UntitledTestCase
+from EosdtFrontSpecificationButton.py import UntitledTestCase
+
+if __name__ == "__main__":
+    unittest.main()
