@@ -21,11 +21,7 @@ public class Xml_Test {
         public void setUp() throws Exception {
 
             start =  System.currentTimeMillis();
-
             driver = new ChromeDriver(); //1
-
-
-
             baseUrl = "http://10.138.243.194:8080/report/query?query=InfoWorkZL&snils=11608660343&lastname=-581498941&firstname=-1894049236&patronymic=1797973543&period_from=10.2016&period_to=02.2017";
             //driver.manage().window().setSize(new Dimension(800,600)); //1
             driver.manage().window().maximize(); //2
@@ -37,12 +33,9 @@ public class Xml_Test {
         @Test
         public void testUntitProtmsAut() throws Exception {
 
-
             driver.get(baseUrl);
             TimeUnit.SECONDS.sleep(2);
-
             String dr = driver.getPageSource();
-
             String InfoWorkZL=  driver.findElement(By.tagName("body")).getText();
             String InfoWorkZL_Et = "This XML file does not appear to have any style information associated with it. The document tree is shown below.\n" +
                     "<vir:InfoWorkZL xmlns:vir=\"http://kvs.pfr.com/work-fact/1.0.1\">\n" +
@@ -103,24 +96,17 @@ public class Xml_Test {
                     "</vir:Insurant>\n" +
                     "</vir:InfoWork>\n";
                  
-
             if (InfoWorkZL.contains(InfoWorkZL_Et)) {
-
                 System.out.println("muy bien ");
                 TimeUnit.SECONDS.sleep(1);
-
             }
 
             else {
                 System.out.println(InfoWorkZL+ "\n" +" ---------------------- "  + "\n"+ "Не соответствует ожидаемрму результату" + "\n" + InfoWorkZL_Et);
                 driver.quit();
             }
-
-            
-            
-            
-            
-            
+                
+                        
             TimeUnit.SECONDS.sleep(2);
 
             driver.close();
