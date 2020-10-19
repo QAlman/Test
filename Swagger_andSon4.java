@@ -40,7 +40,9 @@ public class Swagger_6 {
 
         URL obj = new URL(url);
         HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-        CookieStore cookieStore;
+       // CookieStore cookieStore;
+        org.apache.http.client.CookieStore cookieStore = null;
+        
         con.setRequestMethod("POST");
         // con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
