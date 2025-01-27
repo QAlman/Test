@@ -6,3 +6,14 @@ configurationId = ++++-9476-44e4-bbb4-2b2d5e22e92f
 # testRunId = 3255
 testRunName = RUN_AUTOTEST_12
 adapterMode = 2
+
+
+___________________________
+pytest==6.2.5
+selenium==4.0.0
+openpyxl==3.1.2
+datetime
+pytest-rerunfailures
+allure-pytest
+requests
+python-dotenv
