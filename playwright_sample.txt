@@ -1,0 +1,38 @@
+import playwright
+from playwright.sync_api import Page, expect
+import pytest
+import hashlib
+from playwright.sync_api import sync_playwright, Playwright
+
+
+@pytest.mark.CRITICAL
+@pytest.mark.WebTest
+@pytest.mark.replenish
+@pytest.mark.test_11_2_100
+@pytest.mark.only_browser("chromium")
+def test_2(playwright: Playwright):
+    chromium = playwright.chromium
+    browser = chromium.launch(headless=False)
+    page = browser.new_page()
+    page.set_viewport_size({"width": 1920, "height": 1080})
+    page.goto("https://www.++++.bet/", wait_until= "domcontentloaded")
+
+    page.locator('//button[text()="Вход"]').click()
+    
+
+    for i in range(2):
+        page.keyboard.press("Backspace")
+        
+        
+
+    page.locator('(//input[contains(@inputmode,"decimal")])[1]').fill("100")
+    
+
+    el = page.url
+    
+
+
+    expect(page.get_by_text("Сумма не должна быть меньше 100 ₽", exact=True)).not_to_be_visible()
+
+
+    browser.close()
