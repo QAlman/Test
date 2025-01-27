@@ -1,0 +1,80 @@
+stages:
+  - build_and_push
+  - test
+  - reports
+  - deploy
+  - send
+  
+default:
+  image: registry./////.dev/infrastructure/docker-with-compose
+  
+.build_docker:
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - |
+      docker build \
+      -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME \
+      -t $CI_REGISTRY_IMAGE:latest \
+      .
+    - >-
+      docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME;
+      docker push $CI_REGISTRY_IMAGE:latest;
+  after_script:
+    - docker logout $CI_REGISTRY
+  tags:
+    - docker
+  
+docker:
+  stage: build_and_push
+  extends:
+    - .build_docker
+
+olimp_tests:
+  stage: test
+  image: registry.////.dev/++++/tests/////_auto:master
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PYTHONPATH: "$CI_PROJECT_DIR"
+    ENV: "$ENV"
+    TAG_NAME: "$TAG_NAME"  
+  cache:
+    paths:
+      - .cache/pip
+      - venv/
+  before_script:
+    - pip install -r requirements.txt
+    - wget https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -O ./allurectl
+    #- chmod +x ./.allure/allurectl
+    - chmod +x ./allurectl
+  allow_failure: true
+  script:
+    #- .allure/allurectl watch -- pytest -m WebTest
+    - echo $TAG_NAME
+    - ./allurectl watch -- pytest -m WebTest --alluredir=/builds/++++/tests/+++++_auto/allure-results
+#  rules:
+#    - if: ($CI_PIPELINE_SOURCE == "pipeline" || $CI_PIPELINE_SOURCE == "web" || $CI_PIPELINE_SOURCE == "schedule")
+  tags:
+    - docker
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "dev"'
+      when: never
+    - when: always
+
+
+#tests:
+#  stage: test
+#  before_script:
+#    - python --version
+#    - pip install virtualenv
+#    - virtualenv venv
+#    - source venv/bin/activate
+#  
+#  image: registry.++++.dev/+++/tests/++++_auto:++++_all
+#  
+#  script:
+#    - pip install -r requirements.txt
+#    - pytest -m test_OLIMP_80_1
+#  tags:
+#    - docker
+#  allow_failure: true
