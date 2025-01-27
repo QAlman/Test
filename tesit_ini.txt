@@ -17,3 +17,4 @@ pytest-rerunfailures
 allure-pytest
 requests
 python-dotenv
+testit-adapter-pytest>=2.8.1
