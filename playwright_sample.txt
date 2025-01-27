@@ -36,3 +36,13 @@ def test_2(playwright: Playwright):
 
 
     browser.close()
+
+
+
+
+________________
+pytest-playwright
+playwright
+pytest-dotenv
+wheel==0.37.1
+utils
