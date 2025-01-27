@@ -1,0 +1,8 @@
+[testit]
+url = https://++++.testit.software
+privateToken = +++kWjRwRGhucUhhRm1qWTNk
+projectId = ++++a455-34c0-4714-8417-3b4239a59140
+configurationId = ++++-9476-44e4-bbb4-2b2d5e22e92f
+# testRunId = 3255
+testRunName = RUN_AUTOTEST_12
+adapterMode = 2
